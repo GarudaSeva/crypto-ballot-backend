@@ -8,12 +8,19 @@ const electionRoutes = require('./routes/elections');
 const voteRoutes = require('./routes/votes');
 const resultsRoutes = require('./routes/results');
 const dashboardRoutes = require('./routes/dashboard');
+const blockchainRoutes = require('./routes/blockchain');
 
 const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN?.split(',') || '*', credentials: true }));
+app.use(cors({ 
+  origin: (origin, callback) => {
+    // Allow all origins by reflecting the requesting origin
+    callback(null, true);
+  }, 
+  credentials: true 
+}));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
@@ -23,6 +30,7 @@ app.use('/api/elections', electionRoutes);
 app.use('/api/votes', voteRoutes);
 app.use('/api/results', resultsRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/blockchain', blockchainRoutes);
 
 app.use((req, res) => res.status(404).json({ message: 'Not found' }));
 
