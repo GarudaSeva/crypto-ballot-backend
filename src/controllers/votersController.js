@@ -16,13 +16,4 @@ async function listVoters(req, res) {
   res.json({ voters });
 }
 
-async function verifyVoter(req, res) {
-  const { voterId } = req.params;
-  const { isVerified } = req.body;
-  if (isVerified === undefined) return res.status(400).json({ message: 'isVerified status required' });
-  const user = await User.findByIdAndUpdate(voterId, { isVerified }, { new: true });
-  if (!user) return res.status(404).json({ message: 'Voter not found' });
-  res.json({ message: `Voter ${isVerified ? 'verified' : 'rejected'}`, user });
-}
-
-module.exports = { addVoter, listVoters, verifyVoter };
+module.exports = { addVoter, listVoters };
