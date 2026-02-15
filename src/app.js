@@ -8,6 +8,7 @@ const electionRoutes = require('./routes/elections');
 const voteRoutes = require('./routes/votes');
 const resultsRoutes = require('./routes/results');
 const dashboardRoutes = require('./routes/dashboard');
+const blockchainRoutes = require('./routes/blockchain');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/elections', electionRoutes);
 app.use('/api/votes', voteRoutes);
 app.use('/api/results', resultsRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/blockchain', blockchainRoutes);
 
 app.use((req, res) => res.status(404).json({ message: 'Not found' }));
 
