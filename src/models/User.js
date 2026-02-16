@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema(
     passwordHash: { type: String },
     walletAddress: { type: String, sparse: true, unique: true },
     role: { type: String, enum: ['admin', 'voter'], default: 'voter', index: true },
-    isActive: { type: Boolean, default: true }
+    isActive: { type: Boolean, default: true },
+    isApproved: { type: Boolean, default: false } // Requires admin approval before login
   },
   { timestamps: true }
 );
